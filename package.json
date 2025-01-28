@@ -1,6 +1,7 @@
 {
   "name": "sistema-veterinaria-express",
   "version": "1.0.0",
+  "type": "module",
   "description": "Sistema para Administracion de Veterinaria",
   "main": "index.js",
   "scripts": {
