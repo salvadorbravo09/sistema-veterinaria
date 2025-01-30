@@ -6,6 +6,9 @@ import veterinarioRoutes from "./routes/veterinarioRoutes.js";
 // Crea una instancia de la aplicación Express
 const app = express();
 
+// Permite a la aplicación Express recibir datos en formato JSON
+app.use(express.json());
+
 // Configura dotenv para cargar las variables de entorno
 dotenv.config();
 
