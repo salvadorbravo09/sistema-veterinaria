@@ -4,6 +4,7 @@ const registrar = async (req, res) => {
   const { email } = req.body;
   const emailExiste = await veterinarioModel.findOne({ email });
 
+  // Comprobar si el email ya existe
   if (emailExiste) {
     const error = new Error("El email ya esta registrado");
     return res.status(400).json({ msg: error.message });
@@ -23,4 +24,23 @@ const perfil = (req, res) => {
   res.json({ msg: "Mostrando perfil" });
 };
 
-export { registrar, perfil };
+const confirmar = async (req, res) => {
+  const { token } = req.params;
+
+  const veterinarioConfirmar = await veterinarioModel.findOne({ token });
+  if (!veterinarioConfirmar) {
+    const error = new Error("Token no valido");
+    return res.status(404).json({ msg: error.message });
+  }
+
+  try {
+    veterinarioConfirmar.token = null;
+    veterinarioConfirmar.confirmado = true;
+    await veterinarioConfirmar.save();
+    res.json({ msg: "Veterinario confirmado" });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export { registrar, perfil, confirmar };
