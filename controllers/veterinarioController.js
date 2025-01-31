@@ -43,4 +43,18 @@ const confirmar = async (req, res) => {
   }
 };
 
-export { registrar, perfil, confirmar };
+const autenticar = async (req, res) => {
+  const { email } = req.body;
+
+  // Comprobar si el veterinario existe
+  const veterinario = await veterinarioModel.findOne({ email });
+  if (!veterinario) {
+    const error = new Error("El veterinario no existe");
+    return res.status(403).json({ msg: error.message });
+  }
+
+  //TODO: Comprobar si el veterinario esta confirmado
+
+};
+
+export { registrar, perfil, confirmar, autenticar };
