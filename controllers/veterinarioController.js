@@ -1,4 +1,5 @@
 import veterinarioModel from "../models/veterinarioModel.js";
+import generarJWT from "../helpers/generarJWT.js";
 
 const registrar = async (req, res) => {
   const { email } = req.body;
@@ -53,7 +54,7 @@ const autenticar = async (req, res) => {
     return res.status(403).json({ msg: error.message });
   }
 
-  //TODO: Comprobar si el veterinario esta confirmado
+  // Comprobar si el veterinario esta confirmado
   if (!veterinario.confirmado) {
     const error = new Error("Tu cuenta no ha sido confirmada");
     return res.status(403).json({ msg: error.message });
@@ -61,7 +62,8 @@ const autenticar = async (req, res) => {
 
   // Autenticar al usuario
   if (await veterinario.comprobarPassword(password)) {
-    //TODO: Generar token
+    // Generar JWT
+    res.json({ token: generarJWT(veterinario.id) });
   } else {
     const error = new Error("Password incorrecto");
     return res.status(403).json({ msg: error.message });
