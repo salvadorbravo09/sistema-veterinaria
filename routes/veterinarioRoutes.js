@@ -5,12 +5,16 @@ import {
   confirmar,
   autenticar,
 } from "../controllers/veterinarioController.js";
+import checkAuth from "../middlewares/authMiddleware.js";
 
 const router = express.Router();
 
-router.post("/", registrar);
-router.get("/perfil", perfil);
-router.get("/confirmar/:token", confirmar);
-router.post("/login", autenticar);
+// Public Routes
+router.post("/", registrar); // Ruta para registrar un nuevo veterinario
+router.post("/login", autenticar); // Ruta para autenticar un veterinario
+router.get("/confirmar/:token", confirmar); // Ruta para confirmar la cuenta de un veterinario
+
+// Private Routes
+router.get("/perfil", checkAuth, perfil); // Ruta para ir al perfil de un veterinario
 
 export default router;
