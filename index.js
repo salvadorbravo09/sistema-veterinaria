@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import connectDB from "./config/db.js";
 import veterinarioRoutes from "./routes/veterinarioRoutes.js";
+import pacienteRoutes from "./routes/pacienteRoutes.js";
 
 // Crea una instancia de la aplicación Express
 const app = express();
@@ -16,6 +17,7 @@ dotenv.config();
 connectDB();
 
 app.use("/api/veterinarios", veterinarioRoutes);
+app.use("/api/pacientes", pacienteRoutes);
 
 // Inicia el servidor en el puerto 4000 y muestra un mensaje en la consola
 const port = process.env.PORT || 4000;
