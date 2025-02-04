@@ -95,7 +95,17 @@ const resetPassword = async (req, res) => {
   }
 };
 
-const comprobarToken = (req, res) => {};
+const comprobarToken = async (req, res) => {
+  const { token } = req.params;
+  const tokenValido = await veterinarioModel.findOne({ token });
+  if (tokenValido) {
+    // El token es valido
+    res.json({ msg: "Token valido para resetear la contraseña" });
+  } else {
+    const error = new Error("Token no valido");
+    return res.status(400).json({ msg: error.message });
+  }
+};
 
 const nuevoPassword = (req, res) => {};
 
