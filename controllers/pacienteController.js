@@ -55,7 +55,25 @@ const actualizarPaciente = async (req, res) => {
   }
 };
 
-const eliminarPaciente = async (req, res) => {};
+const eliminarPaciente = async (req, res) => {
+  const { id } = req.params;
+
+  // Buscar el paciente en la base de datos
+  const filter = { _id: id };
+  const paciente = await pacienteModel.findById(filter);
+
+  if (!paciente) {
+    return res.status(404).json({ msg: "Paciente no encontrado" });
+  }
+
+  // Eliminar paciente
+  try {
+    await paciente.deleteOne();
+    res.json({ msg: "Paciente eliminado" });
+  } catch (error) {
+    res.status(500).json({ msg: "Error al eliminar el paciente" });
+  }
+};
 
 export {
   agregarPaciente,
