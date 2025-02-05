@@ -12,8 +12,33 @@ const agregarPaciente = async (req, res) => {
 };
 
 const obtenerPacientes = async (req, res) => {
-  const pacientes = await pacienteModel.find().where('veterinario').equals(req.veterinarioSchema);
+  const pacientes = await pacienteModel
+    .find()
+    .where("veterinario")
+    .equals(req.veterinarioSchema);
   res.json(pacientes);
 };
 
-export { agregarPaciente, obtenerPacientes };
+const obtenerPaciente = async (req, res) => {
+  const { id } = req.params;
+
+  // Buscar el paciente en la base de datos
+  const filter = { _id: id };
+
+  // Obtener el paciente
+  const paciente = await pacienteModel.findById(filter);
+
+  res.json(paciente);
+};
+
+const actualizarPaciente = async (req, res) => {};
+
+const eliminarPaciente = async (req, res) => {};
+
+export {
+  agregarPaciente,
+  obtenerPacientes,
+  obtenerPaciente,
+  actualizarPaciente,
+  eliminarPaciente,
+};
