@@ -11,6 +11,9 @@ const agregarPaciente = async (req, res) => {
   }
 };
 
-const obtenerPacientes = (req, res) => {};
+const obtenerPacientes = async (req, res) => {
+  const pacientes = await pacienteModel.find().where('veterinario').equals(req.veterinarioSchema);
+  res.json(pacientes);
+};
 
 export { agregarPaciente, obtenerPacientes };
