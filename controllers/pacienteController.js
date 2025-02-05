@@ -24,14 +24,36 @@ const obtenerPaciente = async (req, res) => {
 
   // Buscar el paciente en la base de datos
   const filter = { _id: id };
-
-  // Obtener el paciente
   const paciente = await pacienteModel.findById(filter);
 
+  if (!paciente) {
+    return res.status(404).json({ msg: "Paciente no encontrado" });
+  }
+
+  // Obtener el paciente
   res.json(paciente);
 };
 
-const actualizarPaciente = async (req, res) => {};
+const actualizarPaciente = async (req, res) => {
+  const { id } = req.params;
+
+  // Buscar el paciente en la base de datos
+  const filter = { _id: id };
+  const paciente = await pacienteModel.findById(filter);
+
+  if (!paciente) {
+    return res.status(404).json({ msg: "Paciente no encontrado" });
+  }
+
+  // Actualizar paciente
+  paciente.nombre = req.body.nombre;
+  try {
+    const pacienteActualizado = await paciente.save();
+    res.json({ msg: "Paciente actualizado", paciente: pacienteActualizado });
+  } catch (error) {
+    res.status(500).json({ msg: "Error al actualizar el paciente" });
+  }
+};
 
 const eliminarPaciente = async (req, res) => {};
 
