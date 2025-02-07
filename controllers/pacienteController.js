@@ -3,20 +3,25 @@ import pacienteModel from "../models/pacienteModel.js";
 const agregarPaciente = async (req, res) => {
   const paciente = new pacienteModel(req.body);
   paciente.veterinario = req.veterinarioSchema._id;
+
   try {
     const pacienteGuardado = await paciente.save();
-    res.json(pacienteGuardado);
+    res.status(201).json(pacienteGuardado);
   } catch (error) {
-    console.log(error);
+    return res.status(500).json({ msg: error.message });
   }
 };
 
 const obtenerPacientes = async (req, res) => {
-  const pacientes = await pacienteModel
-    .find()
-    .where("veterinario")
-    .equals(req.veterinarioSchema);
-  res.json(pacientes);
+  try {
+    const pacientes = await pacienteModel
+      .find()
+      .where("veterinario")
+      .equals(req.veterinarioSchema);
+    res.status(200).json(pacientes);
+  } catch (error) {
+    res.status(500).json({ msg: error.message });
+  }
 };
 
 const obtenerPaciente = async (req, res) => {
@@ -31,7 +36,7 @@ const obtenerPaciente = async (req, res) => {
   }
 
   // Obtener el paciente
-  res.json(paciente);
+  res.status(200).json(paciente);
 };
 
 const actualizarPaciente = async (req, res) => {
@@ -49,7 +54,7 @@ const actualizarPaciente = async (req, res) => {
   paciente.nombre = req.body.nombre;
   try {
     const pacienteActualizado = await paciente.save();
-    res.json({ msg: "Paciente actualizado", paciente: pacienteActualizado });
+    res.status(200).json({ msg: "Paciente actualizado", paciente: pacienteActualizado });
   } catch (error) {
     res.status(500).json({ msg: "Error al actualizar el paciente" });
   }
@@ -69,7 +74,7 @@ const eliminarPaciente = async (req, res) => {
   // Eliminar paciente
   try {
     await paciente.deleteOne();
-    res.json({ msg: "Paciente eliminado" });
+    res.status(204).json({ msg: "Paciente eliminado" });
   } catch (error) {
     res.status(500).json({ msg: "Error al eliminar el paciente" });
   }
