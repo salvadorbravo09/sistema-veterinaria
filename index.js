@@ -4,6 +4,9 @@ import connectDB from "./config/db.js";
 import veterinarioRoutes from "./routes/veterinarioRoutes.js";
 import pacienteRoutes from "./routes/pacienteRoutes.js";
 
+import swaggerUi from "swagger-ui-express";
+import specs from "./swagger/swagger.js";
+
 // Crea una instancia de la aplicación Express
 const app = express();
 
@@ -18,6 +21,9 @@ connectDB();
 
 app.use("/api/veterinarios", veterinarioRoutes);
 app.use("/api/pacientes", pacienteRoutes);
+
+// Ruta para Swagger
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
 
 // Inicia el servidor en el puerto 4000 y muestra un mensaje en la consola
 const port = process.env.PORT || 4000;
