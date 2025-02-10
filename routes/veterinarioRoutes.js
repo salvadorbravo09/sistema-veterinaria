@@ -134,7 +134,26 @@ router.get("/confirmar/:token", confirmar); // Ruta para confirmar la cuenta de 
  */
 router.post("/resetear-password", resetPassword); // Ruta para resetear la contraseña de un veterinario
 
-
+/**
+ * @swagger
+ * /api/veterinarios/resetear-password/{token}:
+ *   get:
+ *     summary: Verificar token de reseteo
+ *     description: Comprueba si el token de reseteo es válido.
+ *     tags: [Veterinarios]
+ *     parameters:
+ *       - in: path
+ *         name: token
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Token de reseteo de contraseña
+ *     responses:
+ *       200:
+ *         description: Token válido.
+ *       404:
+ *         description: Token inválido.
+ */
 router.get("/resetear-password/:token", comprobarToken); // Ruta para comprobar el token de reseteo de contraseña
 router.post("/resetear-password/:token", nuevoPassword); // Ruta para cambiar la contraseña de un veterinario
 
