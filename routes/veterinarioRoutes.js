@@ -58,7 +58,35 @@ const router = express.Router();
  *         description: El email ya está registrado.
  */
 router.post("/", registrar); // Ruta para registrar un nuevo veterinario
+
+/**
+ * @swagger
+ * /api/veterinarios/login:
+ *   post:
+ *     summary: Autenticar un veterinario
+ *     description: Inicia sesión con email y contraseña.
+ *     tags: [Veterinarios]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 example: "salvador@correo.com"
+ *               password:
+ *                 type: string
+ *                 example: "salvador123"
+ *     responses:
+ *       200:
+ *         description: Veterinario autenticado correctamente.
+ *       401:
+ *         description: Credenciales inválidas o veterinario no confirmado.
+ */
 router.post("/login", autenticar); // Ruta para autenticar un veterinario
+
 router.get("/confirmar/:token", confirmar); // Ruta para confirmar la cuenta de un veterinario
 router.post("/resetear-password", resetPassword); // Ruta para resetear la contraseña de un veterinario
 router.get("/resetear-password/:token", comprobarToken); // Ruta para comprobar el token de reseteo de contraseña
