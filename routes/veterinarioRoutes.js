@@ -155,6 +155,37 @@ router.post("/resetear-password", resetPassword); // Ruta para resetear la contr
  *         description: Token inválido.
  */
 router.get("/resetear-password/:token", comprobarToken); // Ruta para comprobar el token de reseteo de contraseña
+
+/**
+ * @swagger
+ * /api/veterinarios/resetear-password/{token}:
+ *   post:
+ *     summary: Cambiar contraseña
+ *     description: Establece una nueva contraseña usando un token válido.
+ *     tags: [Veterinarios]
+ *     parameters:
+ *       - in: path
+ *         name: token
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Token de reseteo de contraseña
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               password:
+ *                 type: string
+ *                 example: "nuevaContraseña123"
+ *     responses:
+ *       200:
+ *         description: Contraseña cambiada correctamente.
+ *       404:
+ *         description: Token inválido o usuario no encontrado.
+ */
 router.post("/resetear-password/:token", nuevoPassword); // Ruta para cambiar la contraseña de un veterinario
 
 // Private Routes
