@@ -13,6 +13,50 @@ import checkAuth from "../middlewares/authMiddleware.js";
 const router = express.Router();
 
 // Public Routes
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Veterinario:
+ *       type: object
+ *       required:
+ *         - nombre
+ *         - email
+ *         - password
+ *       properties:
+ *         nombre:
+ *           type: string
+ *           description: Nombre del veterinario
+ *           example: "Salvador Bravo"
+ *         email:
+ *           type: string
+ *           description: Correo electrónico único del veterinario
+ *           example: "salvador@correo.com"
+ *         password:
+ *           type: string
+ *           description: Contraseña del veterinario
+ *           example: "salvador123"
+ */
+
+/**
+ * @swagger
+ * /api/veterinarios:
+ *   post:
+ *     summary: Registrar un nuevo veterinario
+ *     description: Crea una cuenta nueva para un veterinario.
+ *     tags: [Veterinarios]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: "#/components/schemas/Veterinario"
+ *     responses:
+ *       201:
+ *         description: Veterinario registrado con éxito.
+ *       400:
+ *         description: El email ya está registrado.
+ */
 router.post("/", registrar); // Ruta para registrar un nuevo veterinario
 router.post("/login", autenticar); // Ruta para autenticar un veterinario
 router.get("/confirmar/:token", confirmar); // Ruta para confirmar la cuenta de un veterinario
