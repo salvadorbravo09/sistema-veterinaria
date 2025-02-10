@@ -109,8 +109,32 @@ router.post("/login", autenticar); // Ruta para autenticar un veterinario
  */
 router.get("/confirmar/:token", confirmar); // Ruta para confirmar la cuenta de un veterinario
 
-
+/**
+ * @swagger
+ * /api/veterinarios/resetear-password:
+ *   post:
+ *     summary: Solicitar reseteo de contraseña
+ *     description: Envia un email con instrucciones para resetear la contraseña.
+ *     tags: [Veterinarios]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 example: "juanperez@example.com"
+ *     responses:
+ *       200:
+ *         description: Email enviado con éxito.
+ *       404:
+ *         description: Usuario no encontrado.
+ */
 router.post("/resetear-password", resetPassword); // Ruta para resetear la contraseña de un veterinario
+
+
 router.get("/resetear-password/:token", comprobarToken); // Ruta para comprobar el token de reseteo de contraseña
 router.post("/resetear-password/:token", nuevoPassword); // Ruta para cambiar la contraseña de un veterinario
 
