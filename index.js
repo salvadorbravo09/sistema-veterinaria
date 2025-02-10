@@ -5,7 +5,7 @@ import veterinarioRoutes from "./routes/veterinarioRoutes.js";
 import pacienteRoutes from "./routes/pacienteRoutes.js";
 
 import swaggerUi from "swagger-ui-express";
-import specs from "./swagger/swagger.js";
+import specs from "./docs/swagger.js";
 
 // Crea una instancia de la aplicación Express
 const app = express();
